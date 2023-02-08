@@ -4,16 +4,32 @@ const { Schema, model } = require("mongoose");
 const emotionsSchema = new Schema(
   {
     sadness: {
-      type: Number,
-      required: [true, "Please insert a value."],
+      value: {
+        type: Number,
+        required: [true, "Please insert a value."],
+        enum: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+      },
+      date: { type: Date },
     },
     anxiety: {
-      type: Number,
-      required: [true, "Please insert a value."],
+      value: {
+        type: Number,
+        required: [true, "Please insert a value."],
+        enum: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+      },
+      date: { type: Date },
     },
     anger: {
-      type: Number,
-      required: [true, "Please insert a value."],
+      value: {
+        type: Number,
+        required: [true, "Please insert a value."],
+        enum: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+      },
+      date: { type: Date },
+    },
+    user: {
+      type: [Schema.Types.ObjectId],
+      ref: "User",
     },
   },
   {
