@@ -31,6 +31,6 @@ const emotionsSchema = new Schema(
   }
 );
 
-const Emotions = model("Emotions", userSchema);
+const Emotions = model("Emotions", emotionsSchema);
 
 module.exports = Emotions;
