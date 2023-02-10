@@ -43,7 +43,7 @@ router.post("/emotions", async (req, res, next) => {
     res.status(404).json({ message: "Error" });
   }
 });
-router.put("/emotions/:id", async (req, res, netx) => {
+router.put("/emotions/:id", async (req, res, next) => {
   try {
     const { id } = req.params;
     const body = req.body;
