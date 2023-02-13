@@ -29,18 +29,18 @@ router.get("/emotions/:id", async (req, res, next) => {
 router.post("/emotions", async (req, res, next) => {
   try {
     const body = req.body;
-    const currentUser = await User.findById(req.payload.user._id);
+    const currentUser = await User.findById(req.body.user._id);
     const emotions = await Emotions.create({
       ...body,
-      user: currentUser,
+      date: Date.now()
     });
-    await User.findByIdAndUpdate(req.payload.user._id, {
+    await User.findByIdAndUpdate(req.body.user._id, {
       $push: { emotions: emotions },
     });
 
     res.status(201).json({ emotions });
   } catch (error) {
-    res.status(404).json({ message: "Error" });
+    res.status(404).json({ message: "There was an error, please try again." });
   }
 });
 router.put("/emotions/:id", async (req, res, next) => {
