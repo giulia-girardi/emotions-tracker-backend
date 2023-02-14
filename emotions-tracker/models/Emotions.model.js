@@ -18,7 +18,7 @@ const emotionsSchema = new Schema(
       required: [true, "Please insert a value."],
       enum: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
     },
-    date: { type: Date },
+    date: { type: String },
 
     user: {
       type: [Schema.Types.ObjectId],

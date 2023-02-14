@@ -64,7 +64,7 @@ router.post("/signup", (req, res, next) => {
       // Send a json response containing the user object
       res.status(201).json({ user: user });
     })
-    .catch((err) => next(err)); 
+    .catch((err) => next(err));
 });
 
 // POST  /auth/login - Verifies email and password and returns a JWT
@@ -112,13 +112,15 @@ router.post("/login", (req, res, next) => {
 });
 
 // GET  /auth/verify  -  Used to verify JWT stored on the client
-router.get("/verify", isAuthenticated, (req, res, next) => {
+router.get("/verify", isAuthenticated, async (req, res, next) => {
   // If JWT token is valid the payload gets decoded by the
   // isAuthenticated middleware and is made available on `req.payload`
+  const currentUser = await User.findById(req.payload._id).populate("emotions");
+  console.log(currentUser, "teste");
   console.log(`req.payload`, req.payload);
 
   // Send back the token payload object containing the user data
-  res.status(200).json(req.payload);
+  res.status(200).json({ payload: req.payload, user: currentUser });
 });
 
 module.exports = router;
