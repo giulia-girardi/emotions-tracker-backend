@@ -29,11 +29,12 @@ router.get("/emotions/:id", async (req, res, next) => {
 router.post("/emotions", async (req, res, next) => {
   try {
     const body = req.body;
-    const currentUser = await User.findById(req.body.user._id);
+    /* const currentUser = await User.findById(req.body.user._id); */
     const emotions = await Emotions.create({
       ...body,
-      date: Date.now().toJSON().slice(0, 10),
+      date: new Date().toJSON().slice(0, 10),
     });
+
     await User.findByIdAndUpdate(req.body.user._id, {
       $push: { emotions: emotions },
     });
