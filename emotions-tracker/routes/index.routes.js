@@ -29,7 +29,8 @@ router.get("/emotions/:id", async (req, res, next) => {
 router.post("/emotions", async (req, res, next) => {
   try {
     const body = req.body;
-    /* const currentUser = await User.findById(req.body.user._id); */
+    console.log('body', body)
+    const currentUser = await User.findById(req.body.user._id);
     const emotions = await Emotions.create({
       ...body,
       date: new Date().toJSON().slice(0, 10),
