@@ -15,6 +15,21 @@ router.get("/emotions", async (req, res, next) => {
     res.status(404).json({ message: "No Emotions found." });
   }
 });
+
+router.get("/:userId/emotions/past-week", async (req, res, next) => {
+  try {
+    const { userId } = req.params;
+    const today = new Date()
+    const oneWeekAgo = new Date(new Date().setDate(today.getDate() - 7))
+
+    const allEmotions = await Emotions.find({$and: [{user: userId}, { date: { $gte: oneWeekAgo }}]});
+
+    res.status(200).json(allEmotions);
+  } catch (error) {
+    res.status(404).json({ message: "No Emotions found." });
+  }
+});
+
 router.get("/emotions/:id", async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -29,7 +44,6 @@ router.get("/emotions/:id", async (req, res, next) => {
 router.post("/emotions", async (req, res, next) => {
   try {
     const body = req.body;
-    console.log('body', body)
     const currentUser = await User.findById(req.body.user._id);
     const emotions = await Emotions.create({
       ...body,

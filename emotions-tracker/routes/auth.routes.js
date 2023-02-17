@@ -116,8 +116,7 @@ router.get("/verify", isAuthenticated, async (req, res, next) => {
   // If JWT token is valid the payload gets decoded by the
   // isAuthenticated middleware and is made available on `req.payload`
   const currentUser = await User.findById(req.payload._id).populate("emotions");
-  console.log(currentUser, "teste");
-  console.log(`req.payload`, req.payload);
+
 
   // Send back the token payload object containing the user data
   res.status(200).json({ payload: req.payload, user: currentUser });
